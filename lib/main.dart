@@ -1,6 +1,6 @@
 
+import 'package:blog_app/authentification/onBoard/on_board.dart';
 import 'package:blog_app/config/routes/routes.dart';
-import 'package:blog_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class BlogApp extends StatelessWidget {
     return const MaterialApp(
        debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRoutes.onGenerateRoutes,
-      home:HomePage() ,
+      home:Onboard() ,
     );
   }
 }

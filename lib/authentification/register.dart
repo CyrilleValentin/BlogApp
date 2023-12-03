@@ -1,8 +1,17 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:blog_app/components/input.dart';
+import 'package:blog_app/config/constants/constant.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +32,9 @@ class RegisterPage extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
-          width: double.infinity,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -38,57 +45,107 @@ class RegisterPage extends StatelessWidget {
                       child: const Text(
                         "Inscription",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF165081),
+                        ),
                       )),
                   const SizedBox(
                     height: 20,
                   ),
                   FadeInUp(
                       duration: const Duration(milliseconds: 1200),
-                      child: Text(
-                        "Créez un compte, C'est gratuit",
-                        style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+                      child: const Text(
+                        strRegister1,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0xFF165081),
+                        ),
                       )),
                 ],
               ),
+               const SizedBox(
+                    height: 20,
+                  ),
               Column(
                 children: <Widget>[
                   FadeInUp(
                       duration: const Duration(milliseconds: 1200),
-                      child: makeInput(label: "Email")),
+                      child: myInput(hintText: 'Nom', icon: Icons.person)),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FadeInUp(
+                      duration: const Duration(milliseconds: 1200),
+                      child: myInput(hintText: 'Email', icon: Icons.email)),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   FadeInUp(
                       duration: const Duration(milliseconds: 1300),
-                      child: makeInput(label: "Password", obscureText: true)),
+                      child: myInput(
+                        hintText: 'Mot de passe',
+                        icon: Icons.password,
+                        obscureText: !_isPasswordVisible,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            // Change l'icône en fonction de la visibilité du mot de passe
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            // Change l'état pour montrer/cacher le mot de passe
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        ),
+                      )),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   FadeInUp(
                       duration: const Duration(milliseconds: 1400),
-                      child: makeInput(
-                          label: "Confirm Password", obscureText: true)),
+                      child: myInput(
+                        hintText: 'Confirmer Mot de passe',
+                        icon: Icons.password,
+                        obscureText: !_isPasswordVisible,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {                          
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        ),
+                      )),
                 ],
+                
               ),
+               const SizedBox(
+                    height: 35,
+                  ),
               FadeInUp(
                   duration: const Duration(milliseconds: 1500),
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 3, left: 3),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: const Border(
-                          bottom: BorderSide(color: Colors.black),
-                          top: BorderSide(color: Colors.black),
-                          left: BorderSide(color: Colors.black),
-                          right: BorderSide(color: Colors.black),
-                        )),
-                    child: MaterialButton(
-                      minWidth: double.infinity,
-                      height: 40,
-                      onPressed: () {},
-                      color: Colors.greenAccent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: const Text(
-                        "S'inscrire",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 18),
+                  child: MaterialButton(
+                    minWidth: 150,
+                    height: 40,
+                    onPressed: () {},
+                    color: const Color(0xFF165081),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: const Text(
+                      "S'inscrire",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: Color(0xFFFFFFFF),
                       ),
                     ),
                   )),
@@ -97,7 +154,7 @@ class RegisterPage extends StatelessWidget {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Vous avez déjà un compte?"),
+                      Text(strRegister2),
                       Text(
                         " Connexion",
                         style: TextStyle(

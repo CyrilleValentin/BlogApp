@@ -7,34 +7,34 @@ import 'package:blog_app/services/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 Future<ResponseApi> login(String email, String password) async {
-  ResponseApi resposeapi = ResponseApi();
+  ResponseApi responseapi = ResponseApi();
   try {
     final response = await http.post(Uri.parse(loginUrl),
         headers: {'Accept': 'application/json'},
         body: {'email': email, 'password': password});
     switch (response.statusCode) {
       case 200:
-        resposeapi.data = User.fromJson(jsonDecode(response.body));
+        responseapi.data = User.fromJson(jsonDecode(response.body));
         break;
       case 422:
         final errors = jsonDecode(response.body)['errors'];
-        resposeapi.error = errors[errors.keys.elementAt(0)][0];
+        responseapi.error = errors[errors.keys.elementAt(0)][0];
         break;
       case 403:
-        resposeapi.error = jsonDecode(response.body)['message'];
+        responseapi.error = jsonDecode(response.body)['message'];
         break;
       default:
-        resposeapi.error = somethingWentWrong;
+        responseapi.error = somethingWentWrong;
         break;
     }
   } catch (e) {
-    resposeapi.error = serverError;
+    responseapi.error = serverError;
   }
-  return resposeapi;
+  return responseapi;
 }
 
 Future<ResponseApi> register(String name, String email, String password) async {
-  ResponseApi resposeapi = ResponseApi();
+  ResponseApi responseapi = ResponseApi();
   try {
     final response = await http.post(Uri.parse(registerUrl), headers: {
       'Accept': 'application/json'
@@ -46,27 +46,27 @@ Future<ResponseApi> register(String name, String email, String password) async {
     });
     switch (response.statusCode) {
       case 200:
-        resposeapi.data = User.fromJson(jsonDecode(response.body));
+        responseapi.data = User.fromJson(jsonDecode(response.body));
         break;
       case 422:
         final errors = jsonDecode(response.body)['errors'];
-        resposeapi.error = errors[errors.keys.elementAt(0)][0];
+        responseapi.error = errors[errors.keys.elementAt(0)][0];
         break;
       case 403:
-        resposeapi.error = jsonDecode(response.body)['message'];
+        responseapi.error = jsonDecode(response.body)['message'];
         break;
       default:
-        resposeapi.error = somethingWentWrong;
+        responseapi.error = somethingWentWrong;
         break;
     }
   } catch (e) {
-    resposeapi.error = serverError;
+    responseapi.error = serverError;
   }
-  return resposeapi;
+  return responseapi;
 }
 
 Future<ResponseApi> getUser() async {
-  ResponseApi resposeapi = ResponseApi();
+  ResponseApi responseapi = ResponseApi();
   try {
     String token=await getToken();
     final response = await http.get(Uri.parse(userUrl), headers: {
@@ -75,18 +75,18 @@ Future<ResponseApi> getUser() async {
     });
     switch (response.statusCode) {
       case 200:
-        resposeapi.data = User.fromJson(jsonDecode(response.body));
+        responseapi.data = User.fromJson(jsonDecode(response.body));
         break;
       case 401:
-        resposeapi.error = unauthorised;
+        responseapi.error = unauthorised;
         break;
       default:
-        resposeapi.error = somethingWentWrong;
+        responseapi.error = somethingWentWrong;
         break;
     }
   } catch (e) {
-    resposeapi.error = serverError;
+    responseapi.error = serverError;
   }
-  return resposeapi;
+  return responseapi;
 }
 

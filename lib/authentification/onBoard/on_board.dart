@@ -1,5 +1,8 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:blog_app/authentification/login.dart';
+import 'package:blog_app/authentification/register.dart';
 import 'package:blog_app/config/constants/constant.dart';
+import 'package:blog_app/config/routes/navigator.dart';
 import 'package:flutter/material.dart';
 
 class Onboard extends StatelessWidget {
@@ -55,7 +58,7 @@ class Onboard extends StatelessWidget {
                         minWidth: double.infinity,
                         height: 60,
                         onPressed: () {
-                          Navigator.of(context).pushNamed(loginRoute);
+                         navigatorSimple(context, const LoginPage());
                         },
                         shape: RoundedRectangleBorder(
                             side: const BorderSide(color: Color(0xFF165081),),
@@ -86,8 +89,8 @@ class Onboard extends StatelessWidget {
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 60,
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(registerRoute);
+                          onPressed: () {navigatorSimple(context, const RegisterPage());
+                            
                           },
                           color: const Color(0xFF165081),
                           elevation: 0,

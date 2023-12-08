@@ -11,6 +11,11 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confpassword = TextEditingController();
   bool _isPasswordVisible = false;
 
   @override
@@ -71,13 +76,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: <Widget>[
                   FadeInUp(
                       duration: const Duration(milliseconds: 1200),
-                      child: myInput(hintText: 'Nom', icon: Icons.person)),
+                      child: myInput(hintText: 'Nom', icon: Icons.person, controller: name)),
                   const SizedBox(
                     height: 20,
                   ),
                   FadeInUp(
                       duration: const Duration(milliseconds: 1200),
-                      child: myInput(hintText: 'Email', icon: Icons.email)),
+                      child: myInput(hintText: 'Email', icon: Icons.email, controller: email)),
                   const SizedBox(
                     height: 20,
                   ),
@@ -100,7 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               _isPasswordVisible = !_isPasswordVisible;
                             });
                           },
-                        ),
+                        ), controller: password,
                       )),
                   const SizedBox(
                     height: 20,
@@ -122,7 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               _isPasswordVisible = !_isPasswordVisible;
                             });
                           },
-                        ),
+                        ), controller: confpassword,
                       )),
                 ],
                 

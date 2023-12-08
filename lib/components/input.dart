@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget myInput({
-  //required TextEditingController controller,
+  required TextEditingController controller,
   required String hintText,
   required IconData icon,
   bool obscureText = false,
@@ -10,7 +10,7 @@ Widget myInput({
   void Function(String?)? onSaved,
 }) {
   return TextFormField(
-    //controller: controller,
+    controller: controller,
     obscureText: obscureText,
     decoration: InputDecoration(
       prefixIcon: Icon(icon),

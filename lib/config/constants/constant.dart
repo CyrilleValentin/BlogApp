@@ -18,7 +18,7 @@ const String password8CaractHint = 'Le mot de passe doit contenir au moins 8 car
 const String confpasswordHint = "Veuillez confirmer votre mot de passe";
 const String confVerifpasswordHint = "Les mots de passe ne correspondent pas";
 
-const baseUrl='https://blogapp.0xzales.com';
+const baseUrl='https://blogapp.0xzales.com/api';
 const loginUrl= '$baseUrl/login';
 const registerUrl= '$baseUrl/register';
 const logoutUrl= '$baseUrl/logout';

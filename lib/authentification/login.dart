@@ -23,12 +23,16 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   bool _isPasswordVisible = false;
+  bool loading=false;
 
   void loginUser() async {
     ResponseApi response = await login(email.text, password.text);
     if (response.error == null) {
       savedRediction(response.data as User);
     } else {
+      setState(() {
+        loading=false;
+      });
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('${response.error}')));
     }
@@ -154,16 +158,18 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             ),
                           ),
+                          
                         ],
                       ),
                     ),
                   ),
+                   loading? const Center(child: CircularProgressIndicator(),):
                   FadeInUp(
                     duration: const Duration(milliseconds: 1400),
                     child: MaterialButton(
                       minWidth: 120,
                       height: 40,
-                      onPressed: () {
+                      onPressed: () { 
                         _submitForm();
                       },
                       color: const Color(0xFF165081),
@@ -203,7 +209,10 @@ class _LoginPageState extends State<LoginPage> {
 
   void _submitForm() async {
     if (formkey.currentState!.validate()) {
+      setState(() {
+        loading=true;
       loginUser();
+      });
     }
   }
 }

@@ -3,6 +3,7 @@
 import 'package:blog_app/api/api_response.dart';
 import 'package:blog_app/api/requete.dart';
 import 'package:blog_app/authentification/login.dart';
+import 'package:blog_app/authentification/onBoard/on_board.dart';
 import 'package:blog_app/config/constants/constant.dart';
 import 'package:blog_app/pages/home_page.dart';
 import 'package:blog_app/services/shared_preferences.dart';
@@ -20,7 +21,7 @@ class _SplashscreenState extends State<Splashscreen> {
     String token = await getToken();
     if (token == '') {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const LoginPage()),
+          MaterialPageRoute(builder: (context) => const Onboard()),
           (route) => false);
     } else {
       ResponseApi response = await getUser();
@@ -30,7 +31,7 @@ class _SplashscreenState extends State<Splashscreen> {
             (route) => false);
       } else if (response.error == unauthorised) {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const LoginPage()),
+            MaterialPageRoute(builder: (context) => const Onboard()),
             (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -2,7 +2,6 @@
 
 import 'package:blog_app/api/api_response.dart';
 import 'package:blog_app/api/requete.dart';
-import 'package:blog_app/authentification/login.dart';
 import 'package:blog_app/authentification/onBoard/on_board.dart';
 import 'package:blog_app/config/constants/constant.dart';
 import 'package:blog_app/pages/home_page.dart';

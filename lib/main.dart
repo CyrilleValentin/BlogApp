@@ -1,11 +1,13 @@
 
-import 'package:blog_app/authentification/onBoard/on_board.dart';
+
 import 'package:blog_app/config/routes/routes.dart';
 import 'package:blog_app/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await dotenv.load(fileName: "lib/.env");
   runApp(const BlogApp());
 }
 

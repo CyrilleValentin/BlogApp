@@ -3,6 +3,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:blog_app/api/api_response.dart';
 import 'package:blog_app/api/requete.dart';
+import 'package:blog_app/authentification/register.dart';
 import 'package:blog_app/components/input.dart';
 import 'package:blog_app/config/constants/constant.dart';
 import 'package:blog_app/config/routes/navigator.dart';
@@ -23,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   bool _isPasswordVisible = false;
-  bool loading=false;
+  bool loading = false;
 
   void loginUser() async {
     ResponseApi response = await login(email.text, password.text);
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       savedRediction(response.data as User);
     } else {
       setState(() {
-        loading=false;
+        loading = false;
       });
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('${response.error}')));
@@ -158,44 +159,51 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             ),
                           ),
-                          
                         ],
                       ),
                     ),
                   ),
-                   loading? const Center(child: CircularProgressIndicator(),):
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 1400),
-                    child: MaterialButton(
-                      minWidth: 120,
-                      height: 40,
-                      onPressed: () { 
-                        _submitForm();
-                      },
-                      color: const Color(0xFF165081),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: const Text(
-                        "Se connecter",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: Color(0xFFFFFFFF),
+                  loading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : FadeInUp(
+                          duration: const Duration(milliseconds: 1400),
+                          child: MaterialButton(
+                            minWidth: 120,
+                            height: 40,
+                            onPressed: () {
+                              _submitForm();
+                            },
+                            color: const Color(0xFF165081),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            child: const Text(
+                              "Se connecter",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Color(0xFFFFFFFF),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                   FadeInUp(
                       duration: const Duration(milliseconds: 1500),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(strLogin2),
-                          Text(
-                            "S'inscrire",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 18),
-                          ),
+                          const Text(strLogin2),
+                          GestureDetector(
+                            onTap: () {
+                              navigatorSimple(context, const RegisterPage());
+                            },
+                            child: const Text(
+                              "S'inscrire",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 18),
+                            ),
+                          )
                         ],
                       ))
                 ],
@@ -210,8 +218,8 @@ class _LoginPageState extends State<LoginPage> {
   void _submitForm() async {
     if (formkey.currentState!.validate()) {
       setState(() {
-        loading=true;
-      loginUser();
+        loading = true;
+        loginUser();
       });
     }
   }

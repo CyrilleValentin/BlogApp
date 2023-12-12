@@ -9,6 +9,7 @@ import 'package:blog_app/config/constants/constant.dart';
 import 'package:blog_app/config/routes/navigator.dart';
 import 'package:blog_app/models/user.dart';
 import 'package:blog_app/pages/home_page.dart';
+import 'package:blog_app/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,11 +26,13 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController password = TextEditingController();
   bool _isPasswordVisible = false;
   bool loading = false;
+  final pref = Preferences.pref;
 
   void loginUser() async {
     ResponseApi response = await login(email.text, password.text);
     if (response.error == null) {
       savedRediction(response.data as User);
+       pref.login();
     } else {
       setState(() {
         loading = false;

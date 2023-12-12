@@ -18,6 +18,7 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   void checkingUser() async {
     String token = await getToken();
+      print(token);
     if (token == '') {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const Onboard()),
@@ -41,18 +42,20 @@ class _SplashscreenState extends State<Splashscreen> {
   }
 
   @override
-  void initState(){
+  void initState() {
     checkingUser();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFFFFFFFF),
-      height: MediaQuery.of(context).size.height,
-      child: const Center(
-        child: CircularProgressIndicator(),
+    return Scaffold(
+      body: Container(
+        color: const Color(0xFFFFFFFF),
+        height: MediaQuery.of(context).size.height,
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }

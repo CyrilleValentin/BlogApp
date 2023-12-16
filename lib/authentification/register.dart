@@ -33,7 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
     ResponseApi response = await register(name.text, email.text, password.text);
     if (response.error == null) {
       savedRediction(response.data as User);
-       pref.login();
+      pref.login();
     } else {
       setState(() {
         loading = !loading;

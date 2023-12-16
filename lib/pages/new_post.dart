@@ -1,7 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
+import 'package:blog_app/api/api_post.dart';
+import 'package:blog_app/api/api_response.dart';
+import 'package:blog_app/authentification/login.dart';
 import 'package:blog_app/components/input.dart';
 import 'package:blog_app/config/constants/constant.dart';
+import 'package:blog_app/config/routes/navigator.dart';
+import 'package:blog_app/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -23,6 +30,22 @@ class _NewPostScreenState extends State<NewPostScreen> {
     if (pickedFile != null) {
       setState(() {
         imageFile = File(pickedFile.path);
+      });
+    }
+  }
+  void creatPost()async{
+    String? image = imageFile == null ? null : await getStringImage(imageFile!);
+    ResponseApi response=await storePost(post.text,image);
+    if (response.error==null){
+      Navigator.of(context).pop();
+    }
+    else if(response.error==unauthorised){
+      logout().then((value) => navigatorDelete(context, const LoginPage()));
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response.error}')));
+      setState(() {
+        loading=!loading;
       });
     }
   }
@@ -102,6 +125,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
       setState(() {
         loading = true;
       });
+      creatPost();
     }
   }
 }

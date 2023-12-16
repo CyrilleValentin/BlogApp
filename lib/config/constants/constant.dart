@@ -24,10 +24,10 @@ const String confVerifpasswordHint = "Les mots de passe ne correspondent pas";
 
 String loginUrl = '${dotenv.env['baseUrl']}/login';
 String registerUrl = '${dotenv.env['baseUrl']}/register';
-String logoutUrl = '${dotenv.env['baseUrl']}//logout';
-String userUrl = '${dotenv.env['baseUrl']}//user';
-String postsUrl = '${dotenv.env['baseUrl']}//posts';
-String commentsUrl = '${dotenv.env['baseUrl']}//comments';
+String logoutUrl = '${dotenv.env['baseUrl']}/logout';
+String userUrl = '${dotenv.env['baseUrl']}/user';
+String postsUrl = '${dotenv.env['baseUrl']}/posts';
+String commentsUrl = '${dotenv.env['baseUrl']}/comments';
 
 const serverError = 'server error';
 const unauthorised = 'Unauthorised';

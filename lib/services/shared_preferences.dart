@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
@@ -42,4 +45,10 @@ Future<int> getUserId() async {
 Future<bool> logout() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   return pref.remove('token');
+}
+
+Future<String?> getStringImage(File file)async{
+// ignore: unnecessary_null_comparison
+if (file == null) return null;
+return base64Encode(file.readAsBytesSync());
 }

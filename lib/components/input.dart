@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget myInput({
   required TextEditingController controller,
   required String hintText,
-   required IconData icon,
+  required IconData icon,
   bool obscureText = false,
   Widget? suffixIcon,
   String? Function(String?)? validator,
@@ -41,7 +41,7 @@ Widget myInput2({
   required String hintText,
   bool obscureText = false,
   Widget? suffixIcon,
-  int?maxLines,
+  int? maxLines,
   String? Function(String?)? validator,
   void Function(String?)? onSaved,
 }) {
@@ -69,5 +69,32 @@ Widget myInput2({
     keyboardType: obscureText ? TextInputType.text : TextInputType.emailAddress,
     validator: validator,
     onSaved: onSaved,
+  );
+}
+
+Expanded likeComentBtn(int value, IconData icon, Color color, Function onTap) {
+  return Expanded(
+    child: Material(
+      child: InkWell(
+        onTap: ()=>onTap(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 16,
+                color: color,
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Text('$value'),
+            ],
+          ),
+        ),
+      ),
+    ),
   );
 }

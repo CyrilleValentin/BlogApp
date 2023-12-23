@@ -37,6 +37,31 @@ class _PostsScreenState extends State<PostsScreen> {
     }
   }
 
+  void _handlelikeUnlikePost(int postId) async {
+    ResponseApi response = await likePost(postId);
+    if (response.error == null) {
+      allUsers();
+    } else if (response.error == unauthorised) {
+      logout().then((value) => {navigatorDelete(context, const Onboard())});
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${response.error}')));
+    }
+  }
+   void _handleDeletePost(int postId) async {
+    ResponseApi response = await removePost(postId);
+    if (response.error == null) {
+      allUsers();
+    } else if (response.error == unauthorised) {
+      logout().then((value) => {navigatorDelete(context, const Onboard())});
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${response.error}')));
+    }
+  }
+
   @override
   void initState() {
     allUsers();
@@ -108,16 +133,18 @@ class _PostsScreenState extends State<PostsScreen> {
                                     itemBuilder: (context) => [
                                       const PopupMenuItem(
                                         value: 'edit',
-                                        child: Text('Edit'),
+                                        child: Text('Modifier'),
                                       ),
                                       const PopupMenuItem(
                                         value: 'delete',
-                                        child: Text('Delete'),
+                                        child: Text('Supprimer'),
                                       )
                                     ],
                                     onSelected: (value) {
                                       if (value == 'edit') {
-                                      } else {}
+                                      } else {
+                                        _handleDeletePost(post.id ?? 0);
+                                      }
                                     },
                                   )
                                 : const SizedBox(width: 1)
@@ -152,8 +179,9 @@ class _PostsScreenState extends State<PostsScreen> {
                                     : Icons.favorite_outline,
                                 post.selfLiked == true
                                     ? Colors.red
-                                    : Colors.black54,
-                                () {}),
+                                    : Colors.black54, () {
+                              _handlelikeUnlikePost(post.id ?? 0);
+                            }),
                             Container(
                               height: 25,
                               width: 0.5,
@@ -162,7 +190,8 @@ class _PostsScreenState extends State<PostsScreen> {
                             likeComentBtn(post.commentsCount ?? 0,
                                 Icons.sms_outlined, Colors.black54, () {}),
                           ],
-                        ),Container(
+                        ),
+                        Container(
                           width: MediaQuery.of(context).size.width,
                           height: 0.5,
                           color: Colors.black26,

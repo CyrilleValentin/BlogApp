@@ -103,16 +103,43 @@ Future<ResponseApi> removePost(int postId) async {
   ResponseApi responseapi = ResponseApi();
   try {
     String token = await getToken();
-    final response = await http.delete(Uri.parse('$postsUrl/$postId'), headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token'
-    });
+    final response = await http.delete(Uri.parse('$postsUrl/$postId'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        });
     switch (response.statusCode) {
       case 200:
         responseapi.data = jsonDecode(response.body)['message'];
         break;
       case 403:
         responseapi.error = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+        responseapi.error = unauthorised;
+        break;
+      default:
+        responseapi.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    responseapi.error = serverError;
+  }
+  return responseapi;
+}
+
+Future<ResponseApi> likePost(int postId) async {
+  ResponseApi responseapi = ResponseApi();
+  try {
+    String token = await getToken();
+    final response = await http.post(Uri.parse('$postsUrl/$postId/likes'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        });
+    switch (response.statusCode) {
+      case 200:
+        responseapi.data = jsonDecode(response.body)['message'];
         break;
       case 401:
         responseapi.error = unauthorised;

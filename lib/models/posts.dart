@@ -22,7 +22,7 @@ class Post {
         id: json['id'],
         body: json['body'],
         image: json['image'],
-        likesCount: json['LikesCount'],
+        likesCount: json['likesCount'],
         commentsCount: json['commentsCount'],
         selfLiked: json['likes'].length > 0,
         user: User(

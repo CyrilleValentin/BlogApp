@@ -1,6 +1,6 @@
 import 'package:blog_app/config/routes/navigator.dart';
 import 'package:blog_app/pages/new_post.dart';
-import 'package:blog_app/pages/posts.dart';
+import 'package:blog_app/pages/posts_page.dart';
 import 'package:blog_app/pages/profile.dart';
 import 'package:flutter/material.dart';
 

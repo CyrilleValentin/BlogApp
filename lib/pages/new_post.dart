@@ -8,12 +8,20 @@ import 'package:blog_app/authentification/login.dart';
 import 'package:blog_app/components/input.dart';
 import 'package:blog_app/config/constants/constant.dart';
 import 'package:blog_app/config/routes/navigator.dart';
+import 'package:blog_app/models/posts.dart';
 import 'package:blog_app/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class NewPostScreen extends StatefulWidget {
-  const NewPostScreen({super.key});
+  final Post? post;
+  final String? title;
+  const NewPostScreen({super.key,  
+    this.post,
+    this.title,
+  });
+
+
 
   @override
   State<NewPostScreen> createState() => _NewPostScreenState();
@@ -50,11 +58,34 @@ class _NewPostScreenState extends State<NewPostScreen> {
     }
   }
 
+  void updatePost(int postId)async{
+    ResponseApi response=await editPost(postId,post.text);
+    if (response.error==null){
+      Navigator.of(context).pop();
+    }
+    else if(response.error==unauthorised){
+      logout().then((value) => navigatorDelete(context, const LoginPage()));
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response.error}')));
+      setState(() {
+        loading=!loading;
+      });
+    }
+  }
+  @override
+  void initState() {
+   if(widget.post!=null){
+    post.text=widget.post!.body??'';
+   }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Nouveau poste"),
+        title:  Text("${widget.title}"),
       ),
       body: loading
           ? const Center(
@@ -62,6 +93,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
             )
           : ListView(
               children: [
+                widget.post!=null? const SizedBox():
                 Container(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
@@ -125,7 +157,11 @@ class _NewPostScreenState extends State<NewPostScreen> {
       setState(() {
         loading = true;
       });
+      if(widget.post==null){
       creatPost();
+      }else{
+        updatePost(widget.post!.id ?? 0);
+      }
     }
   }
 }

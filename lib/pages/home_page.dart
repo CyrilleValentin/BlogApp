@@ -27,7 +27,9 @@ class _HomePageState extends State<HomePage> {
         clipBehavior: Clip.antiAlias,
         elevation: 10,
         onPressed: () {
-          navigatorSimple(context, const NewPostScreen());
+          navigatorSimple(context, const NewPostScreen(
+            title: "Créer un post",
+          ));
         },
         child: const Icon(Icons.add),
       ),

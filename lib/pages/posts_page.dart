@@ -5,6 +5,8 @@ import 'package:blog_app/components/input.dart';
 import 'package:blog_app/config/constants/constant.dart';
 import 'package:blog_app/config/routes/navigator.dart';
 import 'package:blog_app/models/posts.dart';
+import 'package:blog_app/pages/comments_page.dart';
+import 'package:blog_app/pages/new_post.dart';
 import 'package:blog_app/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -142,6 +144,11 @@ class _PostsScreenState extends State<PostsScreen> {
                                     ],
                                     onSelected: (value) {
                                       if (value == 'edit') {
+                                        navigatorSimple(context, NewPostScreen(
+                                          title: "Modifier un post",  
+                                          post: post,
+                                        ));
+                                        
                                       } else {
                                         _handleDeletePost(post.id ?? 0);
                                       }
@@ -188,7 +195,11 @@ class _PostsScreenState extends State<PostsScreen> {
                               color: Colors.black38,
                             ),
                             likeComentBtn(post.commentsCount ?? 0,
-                                Icons.sms_outlined, Colors.black54, () {}),
+                                Icons.sms_outlined, Colors.black54, () {
+                                   navigatorSimple(context, CommentScreen(
+                                          postId: post.id,
+                                        ));
+                                }),
                           ],
                         ),
                         Container(

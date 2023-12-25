@@ -102,7 +102,7 @@ Future<ResponseApi> editComments(int commentId, String comment) async {
   ResponseApi responseapi = ResponseApi();
   try {
     String token = await getToken();
-    final response = await http.put(Uri.parse('$postsUrl/$commentId'), headers: {
+    final response = await http.put(Uri.parse('$commentsUrl/$commentId'), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     }, body: {

@@ -74,7 +74,7 @@ class _PostsScreenState extends State<PostsScreen> {
   Widget build(BuildContext context) {
     return loading
         ? const Center(
-            child: CircleAvatar(),
+            child: CircularProgressIndicator(),
           )
         : RefreshIndicator(
             onRefresh: () {

@@ -11,8 +11,7 @@ Future<ResponseApi> login(String email, String password) async {
   try {
     final response = await http.post(Uri.parse(loginUrl),
         headers: {'Accept': 'application/json'},
-        body: {'email': email, 'password': password}
-        );
+        body: {'email': email, 'password': password});
     switch (response.statusCode) {
       case 200:
         responseapi.data = User.fromJson(jsonDecode(response.body));
@@ -38,8 +37,8 @@ Future<ResponseApi> register(String name, String email, String password) async {
   ResponseApi responseapi = ResponseApi();
   try {
     final response = await http.post(Uri.parse(registerUrl), headers: {
-      'Accept': 'application/json'},
-       body: {
+      'Accept': 'application/json'
+    }, body: {
       'name': name,
       'email': email,
       'password': password,
@@ -80,6 +79,33 @@ Future<ResponseApi> getUser() async {
         break;
       case 401:
         responseapi.error = unauthorised;
+        break;
+      default:
+        responseapi.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    responseapi.error = serverError;
+  }
+  return responseapi;
+}
+
+Future<ResponseApi> update(String name, String? image) async {
+  ResponseApi responseapi = ResponseApi();
+  try {
+    String token = await getToken();
+    final response = await http.put(Uri.parse(userUrl),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+        body: image == null ? {'name': name} : {'name': name, 'image': image});
+    switch (response.statusCode) {
+      case 200:
+        responseapi.data = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+         responseapi.error = unauthorised;
         break;
       default:
         responseapi.error = somethingWentWrong;

@@ -105,7 +105,7 @@ class _PostsScreenState extends State<PostsScreen> {
                                       image: post.user!.image != null
                                           ? DecorationImage(
                                               image: NetworkImage(
-                                                  '${post.user!.image}'))
+                                                  '${post.user!.image}'),fit: BoxFit.cover,)
                                           : null,
                                       borderRadius: BorderRadius.circular(25),
                                       color: Colors.amber,

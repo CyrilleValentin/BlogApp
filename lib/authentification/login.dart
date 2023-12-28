@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('token', user.token ?? '');
     await pref.setInt('userId', user.id ?? 0);
-    navigatorDelete(context, const HomePage());
+    navigatorDelete(context, const DarkSample());
   }
 
   @override

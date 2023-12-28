@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
 
   Widget _buildHomeWidget() {
     if (pref.getLogin == true) {
-      return const HomePage(); // L'utilisateur est connecté, affichez la page de sélection de la difficulté
+      return const HomePage(isDark: false,); // L'utilisateur est connecté, affichez la page de sélection de la difficulté
     }
     if (pref.getLogout == false) {
       return const Onboard(); // L'utilisateur n'est pas connecté, affichez la page d'accueil

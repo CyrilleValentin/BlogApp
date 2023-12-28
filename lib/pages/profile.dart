@@ -128,7 +128,7 @@ void updateProfile() async {
                         },
                       )),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                  loading
                     ? const Center(
                         child: CircularProgressIndicator(),

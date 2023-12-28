@@ -164,14 +164,15 @@ class _PostsScreenState extends State<PostsScreen> {
                         post.image != null
                             ? Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: 300,
+                                height: 370,
                                 padding: const EdgeInsets.only(top: 5),
                                 decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(Radius.circular(5)),
                                   image: DecorationImage(
                                       image: NetworkImage(
                                         '${post.image}',
                                       ),
-                                      fit: BoxFit.contain),
+                                      fit: BoxFit.fill),
                                 ),
                               )
                             : SizedBox(

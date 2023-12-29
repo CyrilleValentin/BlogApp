@@ -46,8 +46,8 @@ Future<bool> logout() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   return pref.remove('token');
 }
-String? getStringImage(File file){
-// ignore: unnecessary_null_comparison
-if (file == null) return null;
-return base64Encode(file.readAsBytesSync());
+
+String? getStringImage(File? file) {
+  if (file == null) return null ;
+  return base64Encode(file.readAsBytesSync());
 }

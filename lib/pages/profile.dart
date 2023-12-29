@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 void updateProfile() async {
-    ResponseApi response = await update(name.text,getStringImage(imageFile!));
+    ResponseApi response = await update(name.text,getStringImage(imageFile));
      setState(() {
         loading = false;
       });
